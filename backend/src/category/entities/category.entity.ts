@@ -1,6 +1,9 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Book } from "src/bouk/entities/book.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
+
+
 export class Category {
     @PrimaryGeneratedColumn()
     id:number;
@@ -8,4 +11,7 @@ export class Category {
   name: string;
   @Column()
   description: string;
+  //relqtion  category to book
+@OneToMany(() => Book, (book) => book.category)
+books: Book[];
 }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, MaxLength, IsOptional, IsNumber } from "class-validator";
 
 export class Createbookdto{
 @IsString()
@@ -8,8 +8,13 @@ name : string
 @IsString()
 @MaxLength(20)
 @IsNotEmpty()
-authour : string
+author : string
 @IsString()
 @IsNotEmpty()
-discription: string
+description: string
+@IsOptional()
+@IsString()
+image : string
+
+category : number
 }

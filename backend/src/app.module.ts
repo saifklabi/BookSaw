@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { CategoryModule } from './category/category.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { bookModule } from './bouk/book.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -18,7 +20,9 @@ import { bookModule } from './bouk/book.module';
        entities: [__dirname + '/**/*.entity{.ts,.js}'], 
        synchronize: true,  }),
     CategoryModule,
-    bookModule],
+    bookModule,
+    UserModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

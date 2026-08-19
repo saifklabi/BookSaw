@@ -1,5 +1,6 @@
 import React from 'react'
 import Home from '../pages/Home'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -51,7 +52,7 @@ const Navbar = () => {
         <div className="row">
           <div className="col-md-2">
             <div className="main-logo">
-              <a href="index.html"><img src="images/main-logo.png" alt="logo" /></a>
+              <Link to="/"> <img src="/images/main-logo.png" alt="logo" /> </Link>
             </div>
           </div>
           <div className="col-md-10">
@@ -73,11 +74,12 @@ const Navbar = () => {
                       <li><a href="index.html">Thank You</a></li>
                     </ul>
                   </li>
-                  <li className="menu-item"><a href="#featured-books" className="nav-link">Featured</a></li>
+                 
                   <li className="menu-item"><a href="#popular-books" className="nav-link">Popular</a></li>
-                  <li className="menu-item"><a href="#special-offer" className="nav-link">Offer</a></li>
-                  <li className="menu-item"><a href="#latest-blog" className="nav-link">Articles</a></li>
-                  <li className="menu-item"><a href="#download-app" className="nav-link">Download App</a></li>
+                  <li className="menu-item"><Link to ="/login" className="nav-link">sign in </Link></li>
+                  
+                  <li className="menu-item"><Link to = "/register" className="nav-link">Register</Link></li>
+                  
                 </ul>
                 <div className="hamburger">
                   <span className="bar" />
