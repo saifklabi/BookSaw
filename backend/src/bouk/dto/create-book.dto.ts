@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsNotEmpty, IsString, MaxLength, IsOptional, IsNumber } from "class-validator";
 
 export class Createbookdto{
@@ -15,6 +16,7 @@ description: string
 @IsOptional()
 @IsString()
 image : string
-
-category : number
+    @Type(() => Number)
+    @IsNumber()
+    category: number;
 }

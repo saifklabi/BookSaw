@@ -17,7 +17,6 @@ export class bookService {
             description: createbookdto.description,
             image: createbookdto.image
         });
-
         // Ajouter la relation avec Category
         if (createbookdto.category) {
 

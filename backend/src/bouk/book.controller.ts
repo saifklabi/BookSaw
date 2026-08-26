@@ -21,7 +21,7 @@ constructor(private readonly bookService: bookService) {}
   }))
 
 @Post()
-  create(@Body() createbookdto: Createbookdto, @Res() response, @UploadedFile() image) {
+  create(@Body() createbookdto: Createbookdto, @UploadedFile() image) {
     createbookdto.image = image ? image.filename : null ;
     return this.bookService.addbook(createbookdto);
 

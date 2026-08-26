@@ -20,7 +20,7 @@ const Layout = () => {
         </main>
       </div>
 
-      <Footer />
+     
     </div>
   )
 }

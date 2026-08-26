@@ -31,11 +31,10 @@ return this.categoryrepository.find();
   }
 
   async remove(id: number) {
-    const categorybyid=await this.categoryrepository.findBy(  {id})
-    if (!categorybyid)
-      {
-        throw new NotFoundException('category not found');
-      }
-       return this.categoryrepository.delete(categorybyid);
+    const category = await this.categoryrepository.findOne({ where: { id } });
+    if (!category) {
+      throw new NotFoundException('category not found');
+    }
+    return this.categoryrepository.delete(id);
   }
 }

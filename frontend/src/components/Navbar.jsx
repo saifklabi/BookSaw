@@ -76,8 +76,10 @@ const Navbar = () => {
                   </li>
                  
                   <li className="menu-item"><a href="#popular-books" className="nav-link">Popular</a></li>
+                  <li className="menu-item"><Link to="/dashboard/librarian/books" className="nav-link">Manage Books</Link></li>
+                  <li className="menu-item"><Link to="/dashboard/librarian/users" className="nav-link">Users</Link></li>
                   <li className="menu-item"><Link to ="/login" className="nav-link">sign in </Link></li>
-                  
+
                   <li className="menu-item"><Link to = "/register" className="nav-link">Register</Link></li>
                   
                 </ul>

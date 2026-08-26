@@ -23,10 +23,6 @@ const Sidebar = () => {
             <i className="icon icon-users me-2" />
             <span>Users</span>
           </a>
-          <a href="#" className="nav-link d-flex align-items-center">
-            <i className="icon icon-book me-2" />
-            <span>Books</span>
-          </a>
         </nav>
 
         <div className="mt-auto user-box">
