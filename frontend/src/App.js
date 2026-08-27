@@ -11,6 +11,7 @@ import GestionCategory from './pages/Dashboard/admin/GestionCategory';
 import { ToastContainer } from 'react-toastify';
 import LayoutLibrarian from './pages/Dashboard/librarian/LayoutLibrarian';
 import GestionBook from './pages/Dashboard/librarian/GestionBook';
+import LayoutClient from './pages/LayoutClient';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 
   
   <Route path='/' element={<Home/>}/>
+  <Route path='/layout-client' element={<LayoutClient />} />
   <Route path='/login' element= { <Signin/>} />
    <Route path='/register' element= { <Register/>} />
   <Route path="/dashboard/librarian" element={<LayoutLibrarian />}>

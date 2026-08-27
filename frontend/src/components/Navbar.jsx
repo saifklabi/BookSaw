@@ -30,8 +30,8 @@ const Navbar = () => {
           <div className="col-md-6">
             <div className="right-element">
               <a href="#" className="user-account for-buy"><i className="icon icon-user" /><span>Account</span></a>
-              <a href="#" className="cart for-buy"><i className="icon icon-clipboard" /><span>Cart:(0
-                  $)</span></a>
+              <a href="#" className="cart for-buy"><i className="icon icon-clipboard" /><span>Books:(0
+                  )</span></a>
               <div className="action-menu">
                 <div className="search-bar">
                   <a href="#" className="search-button search-toggle" data-selector="#header-wrap">
