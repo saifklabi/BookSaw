@@ -15,7 +15,9 @@ export class bookService {
             name: createbookdto.name,
             author: createbookdto.author,
             description: createbookdto.description,
-            image: createbookdto.image
+            image: createbookdto.image,
+            rating: createbookdto.rating ?? 0,
+            comment: createbookdto.comment ?? ''
         });
         // Ajouter la relation avec Category
         if (createbookdto.category) {
@@ -36,12 +38,10 @@ export class bookService {
         return await this.bookrepository.save(newbook);
     }
 findAll(){
-    return this.bookrepository.find()
-
-
+    return this.bookrepository.find({ relations: { category: true } })
 }
 async findOne(id:number){
-    return await this.bookrepository.findOne({where:{id}})
+    return await this.bookrepository.findOne({ where: { id }, relations: { category: true } })
 }
 async remove(id:number){
     const bookid= await this.bookrepository.findBy({id})
@@ -59,11 +59,18 @@ async remove(id:number){
             id,
             name: createbookdto.name,
             author: createbookdto.author,
-            description: createbookdto.description
+            description: createbookdto.description,
+            image: createbookdto.image || undefined,
+            rating: createbookdto.rating ?? undefined,
+            comment: createbookdto.comment ?? undefined
         });
 
         if (!booktoupdate) {
             throw new Error('book not found');
+        }
+
+        if (createbookdto.image) {
+            booktoupdate.image = createbookdto.image;
         }
 
         // Récupérer la catégorie

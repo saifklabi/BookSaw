@@ -14,9 +14,18 @@ author : string
 @IsNotEmpty()
 description: string
 @IsOptional()
+@Type(() => Number)
+@IsNumber()
+@IsOptional()
+rating?: number;
+@IsOptional()
+@IsString()
+comment?: string;
+@IsOptional()
 @IsString()
 image : string
+    @IsOptional()
     @Type(() => Number)
     @IsNumber()
-    category: number;
+    category?: number;
 }

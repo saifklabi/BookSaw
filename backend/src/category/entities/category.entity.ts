@@ -9,8 +9,7 @@ export class Category {
     id:number;
   @Column()
   name: string;
-  @Column()
-  description: string;
+
   //relqtion  category to book
 @OneToMany(() => Book, (book) => book.category)
 books: Book[];

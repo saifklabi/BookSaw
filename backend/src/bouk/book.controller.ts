@@ -39,8 +39,17 @@ findAll() {
   remove(@Param('id') id: string) {
     return this.bookService.remove(+id);
   }
+  @UseInterceptors(FileInterceptor("image", {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        cb(null, `${new Date().getTime()}${extname(file.originalname)}`)
+      }
+    })
+  }))
   @Patch(':id')
-  update(@Param('id') id: string, @Body() createbookdto: Createbookdto) {
+  update(@Param('id') id: string, @Body() createbookdto: Createbookdto, @UploadedFile() image) {
+    createbookdto.image = image ? image.filename : null;
     return this.bookService.update(+id, createbookdto);
   }
 }

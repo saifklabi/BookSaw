@@ -12,10 +12,7 @@ const SidebarLibrarian = () => {
             <i className="icon icon-book me-2" />
             <span>Manage Books</span>
           </Link>
-          <Link to="/dashboard/librarian/users" className="nav-link d-flex align-items-center">
-            <i className="icon icon-users me-2" />
-            <span>Users</span>
-          </Link>
+        
        
        
     

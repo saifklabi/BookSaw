@@ -10,8 +10,13 @@ export class Book{
     author : string
     @Column()
     description : string 
+    @Column({ type: 'float', default: 0 })
+    rating: number;
+    @Column({ type: 'text', nullable: true })
+    comment: string;
     @ManyToOne(() => Category, (category) => category.books)
     category: Category;
     @Column()
     image: string;
+
 }
