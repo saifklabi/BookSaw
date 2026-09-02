@@ -12,37 +12,36 @@ import { ToastContainer } from 'react-toastify';
 import LayoutLibrarian from './pages/Dashboard/librarian/LayoutLibrarian';
 import GestionBook from './pages/Dashboard/librarian/GestionBook';
 import LayoutClient from './pages/LayoutClient';
+import Recommendation from './pages/Recommendation';
 
 function App() {
   return (
-  <>
-<BrowserRouter>
-<ToastContainer position='top-right' autoClose={4000}/>
+    <>
+      <BrowserRouter>
+        <ToastContainer position='top-right' autoClose={4000} />
 
-<Routes>
-
-  
-  <Route path='/' element={<Home/>}/>
-  <Route path='/layout-client' element={<LayoutClient />} />
-  <Route path='/login' element= { <Signin/>} />
-   <Route path='/register' element= { <Register/>} />
-  <Route path="/dashboard/librarian" element={<LayoutLibrarian />}>
-    <Route path="books" element={<GestionBook />} />
-    <Route path="users" element={<Users />} />
-  </Route>
-   <Route path ='/dashboard' element= { <Layout/>} >
-  <Route path='category' element={<GestionCategory/>}/> 
-   </Route>
-   <Route path="/layoutlibrarian" element={<LayoutLibrarian />}>
-   <Route path="gestionbook" element={<GestionBook />} />
-    </Route>
-
-</Routes>
-
-</BrowserRouter>
+        <Routes>
 
 
-  </>
+          <Route path='/' element={<Home />} />
+          <Route path='/layout-client' element={<LayoutClient />} />
+          <Route path='/login' element={<Signin />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/recommendation' element={<Recommendation />} />
+          <Route path='/dashboard' element={<Layout />} >
+            <Route path='category' element={<GestionCategory />} />
+            <Route path="users" element={<Users />} />
+          </Route>
+          <Route path="/layoutlibrarian" element={<LayoutLibrarian />}>
+            <Route path="gestionbook" element={<GestionBook />} />
+          </Route>
+
+        </Routes>
+
+      </BrowserRouter>
+
+
+    </>
   );
 }
 

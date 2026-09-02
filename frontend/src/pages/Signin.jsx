@@ -8,15 +8,23 @@ const Signin = () => {
   const [email,setemail]=useState("")
   const [password,setpassword]=useState("")
   const navigate=useNavigate()
-const handelsignin= async (e) => {
-e.preventDefault() 
 
-try {
-  const response = await axios.post("http://localhost:3001/auth/login", {email,password});
-navigate("/")
-} catch (error) {
-  
-}}
+
+const handelsignin = async (e) => { 
+  e.preventDefault() 
+  try { 
+    const response = await axios.post( "http://localhost:3001/auth/login", { email, password } ) 
+  // Récupérer l'utilisateur retourné par le backend 
+  const user = response.data.user 
+  // Sauvegarder l'utilisateur dans localStorage 
+  localStorage.setItem("user", JSON.stringify(user)) 
+  // Navigation selon le role 
+  if (user.role === "admin") { navigate("/dashboard/category") } 
+  else if (user.role === "librarian") { navigate("/layoutlibrarian/gestionbook") } 
+  else if (user.role === "client") { navigate("/") } 
+} catch (error) { 
+  console.log(error) 
+  alert( error.response?.data?.message || "Email ou mot de passe incorrect" ) } }
 
   return (
     

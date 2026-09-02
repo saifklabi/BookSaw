@@ -1,23 +1,37 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import Navbar from '../components/Navbar'
 
 const LayoutClient = () => {
   const [books, setBooks] = useState([])
   const [reviews, setReviews] = useState({})
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      const userData = JSON.parse(user)
+      setUserId(userData.id)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!userId) return
+
+    const fetchClientBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/book')
+        const response = await axios.get(`http://localhost:3001/book/client/${userId}`)
         setBooks(response.data)
+        console.log('Fetched books for user:', response.data)
       } catch (error) {
         console.error('Error fetching books:', error)
+        toast.error('Error loading your books')
       }
     }
 
-    fetchBooks()
-  }, [])
+    fetchClientBooks()
+  }, [userId])
 
   const handleReviewChange = (bookId, field, value) => {
     setReviews((prev) => ({
@@ -59,10 +73,12 @@ const LayoutClient = () => {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="container py-5">
       <div className="mb-4">
-        <h2>Books available</h2>
-        <p className="text-muted">Choose a book, rate it, and leave a comment.</p>
+        <h2>My Borrowed Books</h2>
+        <p className="text-muted">Your books - rate them and leave a comment.</p>
       </div>
 
       <div className="row g-4">
@@ -128,6 +144,7 @@ const LayoutClient = () => {
         ))}
       </div>
     </div>
+    </>
   )
 }
 

@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Home from '../pages/Home'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userRole, setUserRole] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      setIsAuthenticated(true)
+      const userData = JSON.parse(user)
+      setUserRole(userData.role)
+    } else {
+      setIsAuthenticated(false)
+      setUserRole(null)
+    }
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    setIsAuthenticated(false)
+    navigate('/')
+  }
+
   return (
    <div>
   <div id="header-wrap">
@@ -74,13 +96,45 @@ const Navbar = () => {
                       <li><a href="index.html">Thank You</a></li>
                     </ul>
                   </li>
-                 
+
                   <li className="menu-item"><a href="#popular-books" className="nav-link">Popular</a></li>
 
-                  <li className="menu-item"><Link to ="/login" className="nav-link">sign in </Link></li>
+                  <li className="menu-item"><Link to="/recommendation" className="nav-link">Recommandations IA</Link></li>
 
-                  <li className="menu-item"><Link to = "/register" className="nav-link">Register</Link></li>
-                  
+                  {isAuthenticated && userRole && (
+                    <li className="menu-item">
+                      <Link
+                        to={userRole === "admin" ? "/dashboard/category" : userRole === "librarian" ? "/layoutlibrarian/gestionbook" : "/"}
+                        className="nav-link"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                  )}
+
+                  {isAuthenticated ? (
+                    <li className="menu-item">
+                      <button
+                        onClick={handleLogout}
+                        className="nav-link"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          color: 'inherit',
+                          fontSize: 'inherit'
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  ) : (
+                    <>
+                      <li className="menu-item"><Link to="/login" className="nav-link">sign in </Link></li>
+                      <li className="menu-item"><Link to="/register" className="nav-link">Register</Link></li>
+                    </>
+                  )}
+
                 </ul>
                 <div className="hamburger">
                   <span className="bar" />
@@ -97,7 +151,8 @@ const Navbar = () => {
   {/*header-wrap*/}
 </div>
 
-    
+
+
   )
 }
 

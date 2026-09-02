@@ -109,12 +109,12 @@ const handelAddbook= async (e) => {
         formdata.append("image",image)
         formdata.append("category",selectedCategory)
 const response=await axios.post("http://localhost:3001/book", formdata)
-             toast.success("Category added successfully!")
+             toast.success("Book added successfully!")
              setOpenAddModal(false)
-             setBooks([...books, response.data]) // Update the categories state with the new category
+             setBooks([...books, response.data]) // Update the books state with the new book
         } catch (error) {
-            console.error("Error adding category:", error)
-            toast.error("Error adding category!")
+            console.error("Error adding book:", error)
+            toast.error("Error adding book!")
         }
 
     }
@@ -186,15 +186,15 @@ const response=await axios.post("http://localhost:3001/book", formdata)
                 <form>
                     <div className="mb-3">
                         <label htmlFor="categoryName" className="form-label">Name</label>
-                        <input value={name} onChange={(e) => setname(e.target.value)} type="text" className="form-control" id="categoryName" placeholder="Enter category name" />
+                        <input value={name} onChange={(e) => setname(e.target.value)} type="text" className="form-control" id="categoryName" placeholder="" />
                     </div>
                       <div className="mb-3">
                         <label htmlFor="categoryName" className="form-label">author Name</label>
-                        <input value={author} onChange={(e) => setauthor(e.target.value)} type="text" className="form-control" id="categoryName" placeholder="Enter category name" />
+                        <input value={author} onChange={(e) => setauthor(e.target.value)} type="text" className="form-control" id="categoryName" placeholder="" />
                     </div>
                       <div className="mb-3">
                         <label htmlFor="categoryName" className="form-label">image </label>
-                        <input type="file" onChange={(e) => setimage(e.target.files[0])} className="form-control" id="categoryName" placeholder="Enter category name" />
+                        <input type="file" onChange={(e) => setimage(e.target.files[0])} className="form-control" id="categoryName" placeholder="" />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="categorySelect" className="form-label">Category</label>
@@ -212,23 +212,7 @@ const response=await axios.post("http://localhost:3001/book", formdata)
                         ))}
                       </select>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="bookRating" className="form-label">Rating</label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="5"
-                          step="0.5"
-                          value={rating}
-                          onChange={(e) => setRating(Number(e.target.value))}
-                          className="form-control"
-                          id="bookRating"
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="bookComment" className="form-label">Comment</label>
-                        <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="form-control" id="bookComment" rows={3} placeholder="Add a review comment"></textarea>
-                    </div>
+                  
                     <div className="mb-3">
                         <label htmlFor="categoryDescription" className="form-label">Book Description</label>
                         <textarea value={description} onChange={(e) => setdescription(e.target.value)} className="form-control" id="categoryDescription" rows={3} placeholder="Enter category description"></textarea>
@@ -299,25 +283,8 @@ const response=await axios.post("http://localhost:3001/book", formdata)
                           </option>
                         ))}
                       </select>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="editBookRating" className="form-label">Rating</label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="5"
-                          step="0.5"
-                          value={rating}
-                          onChange={(e) => setRating(Number(e.target.value))}
-                          className="form-control"
-                          id="editBookRating"
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="editBookComment" className="form-label">Comment</label>
-                        <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="form-control" id="editBookComment" rows={3} placeholder="Add a review comment"></textarea>
-                    </div>
-                    <div className="mb-3">
+                  
+               
                     
                         <textarea value={description} onChange={(e) => setdescription(e.target.value)} className="form-control" id="categoryDescription" rows={3} placeholder="Enter book description"></textarea>
                     </div>

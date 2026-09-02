@@ -1,9 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const PopularBook = () => {
   const [books, setBooks] =useState([])
-const [category,setcategory]=useState([])
+  const [category,setcategory]=useState([])
+  const navigate = useNavigate()
 
    useEffect(()=>{
       const fetchBooks = async () => {
@@ -30,6 +33,26 @@ const [category,setcategory]=useState([])
     fetchCategories()
 }
     ,[])
+
+  const handleBorrow = async (bookId) => {
+    try {
+      const user = localStorage.getItem('user')
+      if (!user) {
+        toast.error('Please login first')
+        navigate('/login')
+        return
+      }
+
+      const userData = JSON.parse(user)
+      const response = await axios.post(`http://localhost:3001/user/${userData.id}/borrow/${bookId}`)
+      toast.success('Book borrowed successfully!')
+      navigate('/layout-client')
+    } catch (error) {
+      console.error('Error borrowing book:', error)
+      toast.error(error.response?.data?.message || 'Error borrowing book')
+    }
+  }
+
   return (
     <div>
         <div>	<section id="popular-books" className="bookshelf py-5 my-5">
@@ -57,12 +80,11 @@ const [category,setcategory]=useState([])
             <div id="all-genre" data-tab-content className="active">
               <div className="row">
                 {books.map(b=>(
- <div className="col-md-3">
+ <div key={b.id} className="col-md-3">
                   <div className="product-item">
                     <figure className="product-style">
                       <img src={`http://localhost:3001/uploads/${b.image}` || '/images/book1.jpg'} alt="Books" className="product-item" />
-                      <button type="button" className="add-to-cart" data-product-tile="add-to-cart">Add to
-                        Cart</button>
+                      <button type="button" className="add-to-cart" onClick={() => handleBorrow(b.id)}>Borrow a book</button>
                     </figure>
                     <figcaption>
                       <h3>{b.name}</h3>

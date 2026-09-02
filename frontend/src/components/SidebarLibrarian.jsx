@@ -8,7 +8,7 @@ const SidebarLibrarian = () => {
 
         <nav className="nav flex-column mb-3">
        
-          <Link to="/dashboard/librarian/books" className="nav-link d-flex align-items-center">
+          <Link to="/layoutlibrarian/gestionbook" className="nav-link d-flex align-items-center">
             <i className="icon icon-book me-2" />
             <span>Manage Books</span>
           </Link>
