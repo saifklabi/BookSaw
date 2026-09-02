@@ -1,9 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { hash } from 'typeorm/browser/util/StringUtils.js';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
@@ -33,7 +31,8 @@ constructor( private  userService:UserService ){}
       
     }
     else{
-return "connect successfully" 
+      return { message: "connect successfully", user: { id: userwiththisemail.id, username: userwiththisemail.username, email: userwiththisemail.email, role: userwiththisemail.role, } };
+    
 
     }
 }

@@ -7,8 +7,8 @@ import { Category } from 'src/category/entities/category.entity';
 
 @Injectable()
 export class bookService {
-    constructor(@InjectRepository(Book) private bookrepository:Repository<Book>,
-@InjectRepository(Category) private categoryrepository:Repository<Category>){}
+    constructor(@InjectRepository(Book) private bookrepository: Repository<Book>,
+        @InjectRepository(Category) private categoryrepository: Repository<Category>) { }
     async addbook(createbookdto: Createbookdto) {
 
         const newbook = this.bookrepository.create({
@@ -37,22 +37,22 @@ export class bookService {
 
         return await this.bookrepository.save(newbook);
     }
-findAll(){
-    return this.bookrepository.find({ relations: { category: true } })
-}
-async findOne(id:number){
-    return await this.bookrepository.findOne({ where: { id }, relations: { category: true } })
-}
-async remove(id:number){
-    const bookid= await this.bookrepository.findBy({id})
-    if(!bookid){
-        throw new Error('book not found')
+    findAll() {
+        return this.bookrepository.find({ relations: { category: true } })
     }
-    await this.bookrepository.remove(bookid)
-    return "book deleted successfully"
+    async findOne(id: number) {
+        return await this.bookrepository.findOne({ where: { id }, relations: { category: true } })
+    }
+    async remove(id: number) {
+        const bookid = await this.bookrepository.findBy({ id })
+        if (!bookid) {
+            throw new Error('book not found')
+        }
+        await this.bookrepository.remove(bookid)
+        return "book deleted successfully"
 
 
-}
+    }
     async update(id: number, createbookdto: Createbookdto) {
 
         const booktoupdate = await this.bookrepository.preload({
@@ -91,5 +91,14 @@ async remove(id:number){
         }
 
         return await this.bookrepository.save(booktoupdate);
+    }
+
+    async findBooksByUser(userId: number) {
+        return await this.bookrepository
+            .createQueryBuilder('book')
+            .leftJoinAndSelect('book.users', 'user')
+            .leftJoinAndSelect('book.category', 'category')
+            .where('user.id = :userId', { userId })
+            .getMany();
     }
 }

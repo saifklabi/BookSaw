@@ -31,6 +31,10 @@ findAll() {
     return this.bookService.findAll();
 
   }
+  @Get('client/:userId')
+  findBooksByUser(@Param('userId') userId: string) {
+    return this.bookService.findBooksByUser(+userId);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.bookService.findOne(+id);

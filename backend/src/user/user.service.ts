@@ -1,14 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { Book } from 'src/bouk/entities/book.entity';
 import { error } from 'console';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private userrepository: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private userrepository: Repository<User>,
+    @InjectRepository(Book) private bookrepository: Repository<Book>
+  ) {}
   async create(createUserDto: CreateUserDto) {
    const newuser =this.userrepository.create(createUserDto)
     return await  this.userrepository.save(newuser)
@@ -49,4 +53,32 @@ export class UserService {
 
   }
 
+  async borrowBook(userId: number, bookId: number) {
+    // Récupérer l'utilisateur avec ses livres
+    const user = await this.userrepository.findOne({
+      where: { id: userId },
+      relations: { books: true }
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    // Vérifier que le livre existe
+    const book = await this.bookrepository.findOne({
+      where: { id: bookId }
+    });
+
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${bookId} not found`);
+    }
+
+    // Vérifier si le livre est déjà emprunté
+    if (user.books.some(b => b.id === bookId)) {
+      throw new BadRequestException('Book already borrowed');
+    }
+
+    user.books.push(book);
+    return await this.userrepository.save(user);
+  }
 }

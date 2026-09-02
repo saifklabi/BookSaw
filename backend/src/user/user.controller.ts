@@ -31,4 +31,9 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  @Post(':userId/borrow/:bookId')
+  borrowBook(@Param('userId') userId: string, @Param('bookId') bookId: string) {
+    return this.userService.borrowBook(+userId, +bookId);
+  }
 }
