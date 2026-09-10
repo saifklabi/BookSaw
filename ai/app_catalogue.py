@@ -164,12 +164,13 @@ if lancer:
     prompt = construire_prompt(livres_deja_lus)
 
     with st.spinner(f"Le modèle réfléchit ({methode})..."):
-        try:
+        try:0
             if methode == "Groq (cloud)":
                 resultat = ask_groq(prompt, groq_api_key, modele)
             elif methode == "Ollama (local)":
                 resultat = ask_ollama(prompt, modele)
             else:
+                
                 resultat = ask_docker(prompt, modele)
         except Exception as erreur:
             st.error(f"Impossible de contacter le modèle via {methode} : {erreur}")

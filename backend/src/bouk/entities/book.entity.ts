@@ -1,6 +1,7 @@
 import { Category } from "src/category/entities/category.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, Entity, ManyToOne, ManyToMany, JoinTable, PrimaryGeneratedColumn } from "typeorm";
+import { Loan } from "src/loan/entities/loan.entity";
+import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 @Entity()
 export class Book{
     @PrimaryGeneratedColumn()
@@ -23,4 +24,7 @@ export class Book{
 
     @ManyToMany(() => User, (user) => user.books)
     users: User[];
+
+    @OneToMany(() => Loan, (loan) => loan.book)
+    loans: Loan[];
 }

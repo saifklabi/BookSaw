@@ -13,7 +13,7 @@ const Recommendation = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/book')
+        const response = await axios.get('http://localhost:3002/book')
         setBooks(response.data)
       } catch (error) {
         console.error('Error fetching books:', error)
@@ -38,7 +38,7 @@ const Recommendation = () => {
     setLoading(true)
     setResult(null)
     try {
-      const response = await axios.post('http://localhost:3001/recommendation', {
+      const response = await axios.post('http://localhost:3002/recommendation', {
         bookIds: selectedIds,
       })
       setResult(response.data.recommendation)

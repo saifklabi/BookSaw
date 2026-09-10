@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
 import { Repository } from 'typeorm';
 import { Createbookdto } from './dto/create-book.dto';
+import { Updatebookdto } from './dto/update-book.dto';
 import { Category } from 'src/category/entities/category.entity';
 
 @Injectable()
@@ -53,32 +54,32 @@ export class bookService {
 
 
     }
-    async update(id: number, createbookdto: Createbookdto) {
+    async update(id: number, updatebookdto: Updatebookdto) {
 
         const booktoupdate = await this.bookrepository.preload({
             id,
-            name: createbookdto.name,
-            author: createbookdto.author,
-            description: createbookdto.description,
-            image: createbookdto.image || undefined,
-            rating: createbookdto.rating ?? undefined,
-            comment: createbookdto.comment ?? undefined
+            name: updatebookdto.name,
+            author: updatebookdto.author,
+            description: updatebookdto.description,
+            image: updatebookdto.image || undefined,
+            rating: updatebookdto.rating ?? undefined,
+            comment: updatebookdto.comment ?? undefined
         });
 
         if (!booktoupdate) {
             throw new Error('book not found');
         }
 
-        if (createbookdto.image) {
-            booktoupdate.image = createbookdto.image;
+        if (updatebookdto.image) {
+            booktoupdate.image = updatebookdto.image;
         }
 
         // Récupérer la catégorie
-        if (createbookdto.category) {
+        if (updatebookdto.category) {
 
             const category = await this.categoryrepository.findOne({
                 where: {
-                    id: createbookdto.category
+                    id: updatebookdto.category
                 }
             });
 

@@ -16,10 +16,10 @@ const SidebarLibrarian = () => {
        
        
     
-          <a href="#/dashboard/reports" className="nav-link d-flex align-items-center">
+          <Link to="/layoutlibrarian/listbooks" className="nav-link d-flex align-items-center">
             <i className="icon icon-chart me-2" />
-            <span>Reports</span>
-          </a>
+            <span>List Books Borrowed</span>
+          </Link>
        
         </nav>
 

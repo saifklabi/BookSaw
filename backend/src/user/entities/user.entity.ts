@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Book } from "src/bouk/entities/book.entity";
+import { Loan } from "src/loan/entities/loan.entity";
 
 @Entity()
 export class User {
@@ -20,6 +21,10 @@ export class User {
   @ManyToMany(() => Book, (book) => book.users)
   @JoinTable({ name: "user_books" })
   books: Book[];
+
+  // OneToMany relation to loans
+  @OneToMany(() => Loan, (loan) => loan.user)
+  loans: Loan[];
 }
 
 

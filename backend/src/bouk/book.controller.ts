@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UploadedFile, U
 
    
 import { Createbookdto } from './dto/create-book.dto';
+import { Updatebookdto } from './dto/update-book.dto';
 import { bookService } from './book.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -52,8 +53,8 @@ findAll() {
     })
   }))
   @Patch(':id')
-  update(@Param('id') id: string, @Body() createbookdto: Createbookdto, @UploadedFile() image) {
-    createbookdto.image = image ? image.filename : null;
-    return this.bookService.update(+id, createbookdto);
+  update(@Param('id') id: string, @Body() updatebookdto: Updatebookdto, @UploadedFile() image) {
+    updatebookdto.image = image ? image.filename : null;
+    return this.bookService.update(+id, updatebookdto);
   }
 }

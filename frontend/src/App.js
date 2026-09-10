@@ -13,6 +13,7 @@ import LayoutLibrarian from './pages/Dashboard/librarian/LayoutLibrarian';
 import GestionBook from './pages/Dashboard/librarian/GestionBook';
 import LayoutClient from './pages/LayoutClient';
 import Recommendation from './pages/Recommendation';
+import ListBooks from './pages/Dashboard/librarian/ListBooks';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           </Route>
           <Route path="/layoutlibrarian" element={<LayoutLibrarian />}>
             <Route path="gestionbook" element={<GestionBook />} />
+            <Route path="listbooks" element={<ListBooks />} />
           </Route>
 
         </Routes>

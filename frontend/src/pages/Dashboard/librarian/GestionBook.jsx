@@ -36,7 +36,7 @@ const handleopenDeleteModal = (bookId) => {
   
 const handleDeletebook=async()=>{
     try {
-        const response= await axios.delete(`http://localhost:3001/book/${bookId}`) 
+        const response= await axios.delete(`http://localhost:3002/book/${bookId}`) 
         toast.success("has been delete")
         setdeleteModal(false)
          setBooks(books.filter((book) => book.id !== bookId)); 
@@ -61,7 +61,7 @@ const formdata=new FormData()
         if (selectedCategory) {
           formdata.append("category", selectedCategory)
         }
-        const response = await axios.patch(`http://localhost:3001/book/${bookId}`,formdata)
+        const response = await axios.patch(`http://localhost:3002/book/${bookId}`,formdata)
         toast.success("book updated successfully!")
         setOpenEditModal(false)
  setBooks(books.map((book) => book.id === bookId ? response.data : book));    
@@ -74,7 +74,7 @@ const formdata=new FormData()
  useEffect(()=>{
       const fetchBooks = async () => {
         try {
-            const response=await axios.get ("http://localhost:3001/book")
+            const response=await axios.get ("http://localhost:3002/book")
             setBooks(response.data)
            
             console.log("books",response.data)
@@ -85,7 +85,7 @@ const formdata=new FormData()
     fetchBooks()
     const fetchCategories=async()=>{
          try {
-            const response=await axios.get("http://localhost:3001/category")
+            const response=await axios.get("http://localhost:3002/category")
             setcategory(response.data)
            console.log("retour de l'apiiiii",response.data)
             console.log("books",response.data)
@@ -108,7 +108,7 @@ const handelAddbook= async (e) => {
         formdata.append("comment", comment)
         formdata.append("image",image)
         formdata.append("category",selectedCategory)
-const response=await axios.post("http://localhost:3001/book", formdata)
+const response=await axios.post("http://localhost:3002/book", formdata)
              toast.success("Book added successfully!")
              setOpenAddModal(false)
              setBooks([...books, response.data]) // Update the books state with the new book
@@ -143,7 +143,7 @@ const response=await axios.post("http://localhost:3001/book", formdata)
                 <td>
                   <div className="d-flex align-items-center gap-3">
                     <img
-                      src={`http://localhost:3001/uploads/${book.image}` || '/images/book1.jpg'}
+                      src={`http://localhost:3002/uploads/${book.image}` || '/images/book1.jpg'}
                       alt={book.name}
                       style={{
                         width: 52,

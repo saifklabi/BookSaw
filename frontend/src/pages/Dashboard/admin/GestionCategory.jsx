@@ -20,7 +20,7 @@ const GestionCategory = () => {
   const handleEditCategory = async (e) => {
     try{
 e.preventDefault() // prevent the default form submission behavior
-        const response = await axios.patch(`http://localhost:3001/category/${categoryIdToEdit}`, {name:nameCategory,description:description})
+        const response = await axios.patch(`http://localhost:3002/category/${categoryIdToEdit}`, {name:nameCategory,description:description})
         toast.success("Category updated successfully!")
         setOpenEditModal(false)
         setCategories(categories.map((category) => category.id === categoryIdToEdit ? response.data : category)); // Update the categories state after editing
@@ -35,7 +35,7 @@ e.preventDefault() // prevent the default form submission behavior
     useEffect(()=>{
       const fetchCategories = async () => {
         try {
-            const response=await axios.get ("http://localhost:3001/category")
+            const response=await axios.get ("http://localhost:3002/category")
             setCategories(response.data)
            
             console.log("categories",response.data)
@@ -53,7 +53,7 @@ e.preventDefault() // prevent the default form submission behavior
         console.log("nameCategory you put ",nameCategory)
         console.log("description you put ",description)
         //send to backend
-const response=await axios.post("http://localhost:3001/category/addcategory", {name:nameCategory,description:description})
+const response=await axios.post("http://localhost:3002/category/addcategory", {name:nameCategory,description:description})
              toast.success("Category added successfully!")
              setOpenAddModal(false)
              setCategories([...categories, response.data]) // Update the categories state with the new category
@@ -71,7 +71,7 @@ const handleopenDeleteModal = (categoryId) => {
 }
 const handleDeleteCategory = async () => {
     try {
-        const  response = await axios.delete(`http://localhost:3001/category/${categoryIdToDelete}`)
+        const  response = await axios.delete(`http://localhost:3002/category/${categoryIdToDelete}`)
         toast.success("category delete succcefuly")
         setOpenDeleteModal(false)
         setCategories(categories.filter((category) => category.id !== categoryIdToDelete)); // Update the categories state after deletion

@@ -10,7 +10,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/user/findall')
+      const res = await axios.get('http://localhost:3002/user/findall')
       setUsers(res.data)
       console.log("userrrrr",res.data)
     } catch (err) {
@@ -26,7 +26,7 @@ const Users = () => {
     e.preventDefault()
     try {
       const payload = { username, email, password }
-      await axios.post('http://localhost:3001/user', payload)
+      await axios.post('http://localhost:3002/user', payload)
       setOpenAddModal(false)
       setUsername('')
       setEmail('')
@@ -41,7 +41,7 @@ const Users = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this user?')) return
     try {
-      await axios.delete(`http://localhost:3001/user/${id}`)
+      await axios.delete(`http://localhost:3002/user/${id}`)
       fetchUsers()
     } catch (err) {
       console.error('Error deleting user', err)

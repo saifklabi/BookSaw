@@ -52,8 +52,10 @@ const Navbar = () => {
           <div className="col-md-6">
             <div className="right-element">
               <a href="#" className="user-account for-buy"><i className="icon icon-user" /><span>Account</span></a>
-              <a href="#" className="cart for-buy"><i className="icon icon-clipboard" /><span>Books:(0
-                  )</span></a>
+              <Link to="/layout-client" className="cart for-buy">
+                <i className="icon icon-clipboard" />
+                <span>Books</span>
+              </Link>
               <div className="action-menu">
                 <div className="search-bar">
                   <a href="#" className="search-button search-toggle" data-selector="#header-wrap">
@@ -81,11 +83,11 @@ const Navbar = () => {
             <nav id="navbar">
               <div className="main-menu stellarnav">
                 <ul className="menu-list">
-                  <li className="menu-item active"><a href="#home">Home</a></li>
+                  <li className="menu-item active"><Link to="/">Home</Link></li>
                   <li className="menu-item has-sub">
                     <a href="#pages" className="nav-link">Pages</a>
                     <ul>
-                      <li className="active"><a href="index.html">Home</a></li>
+                      <li className="active"><Link to="/">Home</Link></li>
                       <li><a href="index.html">About</a></li>
                       <li><a href="index.html">Styles</a></li>
                       <li><a href="index.html">Blog</a></li>

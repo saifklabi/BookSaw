@@ -18,19 +18,21 @@ const LayoutClient = () => {
 
   useEffect(() => {
     if (!userId) return
-
-    const fetchClientBooks = async () => {
+    const fetchAcceptedLoans = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/book/client/${userId}`)
-        setBooks(response.data)
-        console.log('Fetched books for user:', response.data)
+        const res = await axios.get(`http://localhost:3002/loan/user/${userId}`)
+        // show only accepted loans
+        const accepted = (res.data || []).filter((l) => l.status === 'accepted')
+        const booksFromLoans = accepted.map((l) => ({ ...l.book, loanId: l.id, loanStatus: l.status, loanCreatedAt: l.createdAt }))
+        setBooks(booksFromLoans)
+        console.log('Fetched accepted loans for user:', booksFromLoans)
       } catch (error) {
-        console.error('Error fetching books:', error)
+        console.error('Error fetching accepted loans:', error)
         toast.error('Error loading your books')
       }
     }
 
-    fetchClientBooks()
+    fetchAcceptedLoans()
   }, [userId])
 
   const handleReviewChange = (bookId, field, value) => {
@@ -54,17 +56,17 @@ const LayoutClient = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:3001/book/${bookId}`, {
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (!user) {
+        toast.error('Please login first')
+        return
+      }
+      await axios.post('http://localhost:3002/review', {
+        userId: user.id,
+        bookId,
         rating,
         comment,
       })
-
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book.id === bookId ? { ...book, ...response.data } : book
-        )
-      )
-
       toast.success('Review saved successfully')
     } catch (error) {
       console.error('Error saving review:', error)
@@ -86,7 +88,7 @@ const LayoutClient = () => {
           <div key={book.id} className="col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm border-0">
               <img
-                src={book.image ? `http://localhost:3001/uploads/${book.image}` : '/images/book1.jpg'}
+                src={book.image ? `http://localhost:3002/uploads/${book.image}` : '/images/book1.jpg'}
                 className="card-img-top"
                 alt={book.name}
                 style={{ height: '250px', objectFit: 'cover' }}

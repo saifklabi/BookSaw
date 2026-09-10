@@ -16,7 +16,7 @@ const Register = () => {
  console.log("username you put ",username)
  //send to backend
 
- const response= await axios.post("http://localhost:3001/auth/register", {username,email,password})
+ const response= await axios.post("http://localhost:3002/auth/register", {username,email,password})
     navigate("/login")
 }
   return (

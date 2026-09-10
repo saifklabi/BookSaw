@@ -7,6 +7,8 @@ import { bookModule } from './bouk/book.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { RecommendationModule } from './recommendation/recommendation.module';
+import { LoanModule } from './loan/loan.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -23,7 +25,9 @@ import { RecommendationModule } from './recommendation/recommendation.module';
     bookModule,
     UserModule,
     AuthModule,
-    RecommendationModule],
+    RecommendationModule,
+    LoanModule,ReviewModule],
+  
   controllers: [AppController],
   providers: [AppService],
 })
